@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>el与data的两种写法</title>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+
+<!--准备一个容器-->
+<div id="container">
+    <h1>Hello {{name}}</h1>
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false;    //阻止vue在启动时生成生产提示
+
+    /**
+     * el的两种写法
+     */
+    // let vue = new Vue({
+    //     el: '#container',       //方式一
+    //     data: {
+    //         name: 'zhazha',
+    //     },
+    // });
+    // vue.$mount('#container');    //方式二
+
+    /**
+     * data的两种方法
+     */
+    let vue = new Vue({
+        el: '#container',
+        // data: {                 //方式一:对象式
+        //     name: 'zhazha',
+        // },
+        // data: function () {     //方式二:函数式
+        //     return {
+        //         name: 'zhazha',
+        //     }
+        // },
+        data() {                   //方式二:函数式 简写
+            return {
+                name: 'zhazha',
+            }
+        },
+    });
+</script>
+
+</body>
+</html>
