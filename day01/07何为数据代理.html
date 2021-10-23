@@ -1,0 +1,29 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>何为数据代理</title>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+
+<script type="text/javascript">
+    <!--数据代理-->
+    let o1 = {x: 100};
+    let o2 = {y: 200};
+    Object.defineProperty(o2, 'x', {
+        get() {
+            return o1.x;
+        },
+        set(value) {
+            o1.x = value;
+        }
+    });
+</script>
+
+</body>
+</html>
+
