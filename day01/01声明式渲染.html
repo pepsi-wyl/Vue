@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>声明式渲染</title>
+
+    <!--引入浏览器图标-->
+    <link rel="shortcut icon" href="../favicon.ico">
+
+    <!--引入本地Vue.js-->
+    <!--    <script src="../js/vue.js"></script>-->
+    <!--使用CDN 引入Vue.js-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+</head>
+<body>
+<!--
+    初识vue
+       1.必须创建Vue对象,并且要传入一个配置对象
+       2.container容器里面的代码符合HTML规范，混入了Vue语法
+       3.container容器里面的代码被称为[Vue模板]
+       4.Vue实例与容器一一对应
+       5.真实开发只有一个Vue实例，并且配合容器一起使用
+       6.{{}}中的XXX为JS表达式，且XXX可以自动读取到data中的所有属性
+       7.一旦data中的数据发生变化，页面中用到该数据的地方有会自动跟新
+-->
+
+
+<!--声明式渲染-->
+
+<!--准备一个容器-->
+<div id="container">
+    <!--鼠标停留几秒查看动态绑定的信息-->
+    <span v-bind:title="data">
+         <!--{{XXX}}进行数据引入-->
+         <h1>{{message}}</h1>
+    </span>
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false;   //阻止Vue再启动时生成生成提示
+    //创建Vue实例    接管一个容器    容器与Vue实例一一对应
+    let vue = new Vue({
+        el: '#container',   //el用于指定当前vue实例为哪个容器服务，值通常为css选择器字符串
+        data: {             //data中用于储存书，数据供el容器去使用,暂时用对象
+            message: 'Hello Vue!!!',
+            data: new Date().toLocaleString(),
+        },
+    });
+</script>
+
+</body>
+</html>
