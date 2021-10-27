@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>天气案例_监视属性</title>
+    <link rel="shortcut icon" href="../favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+<!--
+     监听属性watch:
+        1.当被监视的属性变化时，回调函数自动调用，进行相关操作
+        2.监听的属性必须存在，才能进行监听
+        3.监听的两种写法:
+          1)new Vue时传入watch配置
+          2)通过VM.$watch监视
+-->
+<!--准备一个容器-->
+<div id="container">
+    <h1>天气:{{info}}</h1>
+    <button type="button" @click="changeWeather()">切换天气</button>
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false;     //抑制警告
+    let VM = new Vue({
+        el: '#container',                 //绑定容器
+        data: {
+            isHot: true,
+        },
+        //计算属性
+        computed: {
+            info() {
+                return this.isHot ? '炎热' : '凉爽';      //显示信息
+            }
+        },
+        //方法
+        methods: {
+            changeWeather() {
+                this.isHot = !this.isHot;                //切换天气
+            }
+        },
+        //监视
+        // watch: {
+        //     isHot: {
+        //         immediate: true,                 //初始化时让Handler调用一下
+        //         handler(newValue, oldValue) {    //isHot发生改变时候调用
+        //             console.log(oldValue + '---isHot修改---' + newValue);
+        //         }
+        //     },
+        //     info: {
+        //         immediate: true,                 //初始化时让Handler调用一下
+        //         handler(newValue, oldValue) {    //isHot发生改变时候调用
+        //             console.log(oldValue + '---天气修改---' + newValue);
+        //         }
+        //     },
+        // },
+    });
+
+    /**
+     * 配置监视的第二种办法
+     */
+    VM.$watch('isHot', {
+        immediate: true,                 //初始化时让Handler调用一下
+        handler(newValue, oldValue) {    //isHot发生改变时候调用
+            console.log(oldValue + '---isHot修改---' + newValue);
+        }
+    });
+
+    VM.$watch('info', {
+        immediate: true,                 //初始化时让Handler调用一下
+        handler(newValue, oldValue) {    //isHot发生改变时候调用
+            console.log(oldValue + '---天气修改---' + newValue);
+        }
+    });
+</script>
+
+</body>
+</html>
