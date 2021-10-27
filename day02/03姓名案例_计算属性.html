@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>姓名案例_计算属性</title>
+    <link rel="shortcut icon" href="../favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+
+<!--准备一个容器-->
+<div id="container">
+    <!--数据双向绑定-->
+    姓:<input type="text" v-model="firstName"><br/>
+    名:<input type="text" v-model="lastName"><br/>
+    全名:<span>{{fullName}}</span>
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false;        //抑制警告
+    let VM = new Vue({
+        el: '#container',
+        data: {
+            firstName: '张',
+            lastName: '三',
+        },
+
+        /**
+         * 计算属性      要用的属性不存在,要通过已有的属性计算得来
+         * 底层借助了 Object.defineProperty 方法提供的 getter 和 setter 实现
+         * 优势:与 methods实现比较,内部有缓存机制(复用)，效率更高
+         * 注意: 计算属性最终会出现再 VM 上，直接使用即可
+         *      计算属性要被修改，写set函数去响应修改，set中要引起计算时的依赖属性修改
+         */
+        computed: {
+
+            //计算属性
+            fullName: {
+                /**
+                 * get方法
+                 * 初次调用时:第一个走get 其他走缓存
+                 * 所依赖的属性发生变化时:全部走get
+                 */
+                get() {
+                    return this.firstName.slice(0, 3) + '-' + this.lastName.slice(0, 3);
+                },
+                /**
+                 * set方法
+                 * 计算属性修改时
+                 */
+                set(value) {
+                    const arr = value.split('-');
+                    this.firstName = arr[0];
+                    this.lastName = arr[1];
+                },
+            },
+
+            /**
+             * 计算属性 简写
+             * 考虑读入不考虑修改
+             */
+            // fullName() {
+            //     return this.firstName.slice(0, 3) + '-' + this.lastName.slice(0, 3);
+            // }
+        },
+    });
+</script>
+
+
+</body>
+</html>
