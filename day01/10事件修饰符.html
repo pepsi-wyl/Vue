@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件修饰符</title>
+
+    <!--引入浏览器图标-->
+    <link rel="shortcut icon" href="../favicon.ico">
+    <!--使用CDN 引入Vue.js-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+    <style>
+
+        * {
+            margin-top: 20px;
+        }
+
+        .demo {
+            height: 50px;
+            background-color: deepskyblue;
+        }
+
+        .box1 {
+            padding: 5px;
+            background-color: deepskyblue;
+        }
+
+        .box2 {
+            padding: 5px;
+            background-color: orange;
+        }
+
+        .list {
+            width: 200px;
+            height: 200px;
+            background-color: orange;
+            overflow: auto; /*滚动条*/
+        }
+
+        li {
+            height: 100px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<!--
+   prevent  阻止默认事件
+   stop     阻止事件冒泡
+   once     事件只会触发一次
+   capture  使用事件的捕获模式
+   self     当前操作的元素时才触发
+   passive  事件的默认行为立即执行
+-->
+
+<!--准备容器-->
+<div id="container">
+
+    <!--阻止默认事件-->
+    <a @click.prevent="showInfo('百度',$event)" href="https://www.baidu.com">百度</a>
+
+    <!--阻止事件冒泡-->
+    <div class="demo" @click="showInfo('demo1',$event)">
+        <button @click.stop="showInfo('demo1',$event)">点我提示消息!!!</button>
+        <!--修饰符号可以连着写-->
+        <a @click="showInfo('百度',$event)" href="https://www.baidu.com">百度</a>
+    </div>
+
+    <!--事件只会触发一次-->
+    <div class="demo">
+        <button @click.once="showInfo('demo2',$event)">点我提示消息!!!</button>
+    </div>
+
+    <!--使用事件的捕获模式-->
+    <div class="box1" @click.capture="showInfo('box1',$event)">
+        div1
+        <div class="box2" @click="showInfo('box2',$event)">
+            div2
+        </div>
+    </div>
+
+    <!--只有event.target是当前操作的元素时才触发事件-->
+    <div class="demo" @click.self="showInfo('demo4div',$event)">
+        <button @click.stop="showInfo('demo4button',$event)">点我提示消息!!!</button>
+    </div>
+
+    <!--事件的默认行为立即执行  @scroll不需要调用-->
+    <ul class="list" @wheel.passive="demo5('@')" @scroll>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false;
+    let VM = new Vue({
+        el: '#container',
+        methods: {
+            showInfo(msg, event) {
+                console.log(msg);
+                // event.preventDefault();         //阻止默认事件
+                // event.stopPropagation();        //阻止事件冒泡
+            },
+            demo5(msg) {
+                for (let i = 0; i < 10000; i++)
+                    console.log(msg);
+            },
+        },
+    });
+
+</script>
+
+</body>
+</html>
