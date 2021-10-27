@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>键盘事件</title>
+    <!--引入浏览器图标-->
+    <link rel="shortcut icon" href="../favicon.ico">
+    <!--使用CDN 引入Vue.js-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+
+<!--
+   1.Vue中常用的按键别名：
+     回车:enter                        Enter
+     删除:delete   (捕获删除键和退格键)   delete（删除）/BackSpace（退格）
+     退出:esc                          Esc
+     空格:space                        Space
+     上:up                             Up
+     下:down                           Down
+     左:left                           Left
+     右:right                          Right
+     换行:tab(必须配合keydown使用)
+
+   2.系统修饰键:(用法特殊) ctrl--Ctrl  alt--Alt   shift--Shift  meta(win)
+     （1）配合keyup使用:按下按键的同时，再按下其他键，随后释放其他键，事件才能触发
+     （2）配合keydown使用:正常触发事件
+
+   3.vue未提供别名的按键，可以使用按键原始的key值去绑定，注意要转化为XXX-XXX(短横线命名) 例如:Caps-Lock
+
+   4.可以使用keycode去指定具体的按键(不推荐)
+
+   5.Vue.config.keyCode.自定义键名称=键码 自定义按键别名
+
+   6.复合按键
+      @keydown.alt.enter  Alt + Enter
+      @click.ctrl         Click + Ctrl
+
+-->
+
+<!--准备容器-->
+<div id="container">
+    <input type="text" placeholder="按下回车输入信息" @keydown.alt.enter="showInfo">
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false;      //消除警告
+    let VM = new Vue({
+        el: '#container',
+        methods: {
+            showInfo(event) {
+                //keyCode=13 为 回车
+                //if (event.keyCode === 13)
+                console.log(event.target.value);
+            },
+        },
+    });
+</script>
+
+</body>
+</html>
