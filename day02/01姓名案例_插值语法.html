@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>姓名案例_插值语法</title>
+    <link rel="shortcut icon" href="../favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+
+<!--准备一个容器-->
+<div id="container">
+    <!--数据双向绑定-->
+    姓:<input type="text" v-model="firstName"><br/>
+    名:<input type="text" v-model="lastName"><br/>
+    全名:<span>{{firstName.slice(0,3)}}-{{lastName}}</span>
+</div>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false; //抑制警告
+    let VM = new Vue({
+        el: '#container',
+        data: {
+            firstName: '张',
+            lastName: '三',
+        },
+    });
+</script>
+
+
+</body>
+</html>
